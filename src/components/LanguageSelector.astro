@@ -1,0 +1,176 @@
+---
+export interface Props {
+  currentLang?: string;
+}
+
+const { currentLang = 'en' } = Astro.props;
+
+const languages = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'zh', name: '中文', flag: '🇨🇳' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' }
+];
+---
+
+<div class="language-selector">
+  <div class="language-header">
+    <svg class="translate-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10m2-4h6"/>
+    </svg>
+    <span>Read this article in:</span>
+  </div>
+  <div class="language-grid">
+    {languages.map(lang => (
+      <button 
+        class={`lang-btn ${lang.code === currentLang ? 'active' : ''}`}
+        data-lang={lang.code}
+        aria-label={`Translate to ${lang.name}`}
+      >
+        <span class="flag">{lang.flag}</span>
+        <span class="lang-name">{lang.name}</span>
+      </button>
+    ))}
+  </div>
+  <p class="translation-note">
+    Powered by AI translation • <a href="#" class="help-link">Help improve translations</a>
+  </p>
+</div>
+
+<style>
+  .language-selector {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 32px 0;
+    color: white;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+  }
+
+  .language-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .translate-icon {
+    flex-shrink: 0;
+  }
+
+  .language-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .lang-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .lang-btn.active {
+    background: rgba(255, 255, 255, 0.95);
+    color: #764ba2;
+    font-weight: 600;
+  }
+
+  .flag {
+    font-size: 20px;
+  }
+
+  .lang-name {
+    white-space: nowrap;
+  }
+
+  .translation-note {
+    font-size: 12px;
+    opacity: 0.9;
+    margin: 0;
+    text-align: center;
+  }
+
+  .help-link {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .help-link:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 640px) {
+    .language-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .lang-btn {
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.lang-btn');
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const lang = target.dataset.lang;
+        
+        // Remove active class from all buttons
+        buttons.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        target.classList.add('active');
+        
+        // Store language preference
+        localStorage.setItem('preferredLanguage', lang || 'en');
+        
+        // Trigger translation (you would implement actual translation logic here)
+        if (lang !== 'en') {
+          // Show loading state
+          target.innerHTML = '<span class="flag">' + target.querySelector('.flag')?.textContent + '</span><span>Loading...</span>';
+          
+          // Simulate translation delay
+          setTimeout(() => {
+            // Reset button text
+            const flagEmoji = target.querySelector('.flag')?.textContent;
+            const langName = target.querySelector('.lang-name')?.textContent;
+            target.innerHTML = `<span class="flag">${flagEmoji}</span><span class="lang-name">${langName}</span>`;
+            
+            // You would trigger actual translation here
+            console.log(`Translating to ${lang}`);
+          }, 1000);
+        }
+      });
+    });
+  });
+</script>
