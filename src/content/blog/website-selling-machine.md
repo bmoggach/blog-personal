@@ -3,7 +3,6 @@ title: 'The Website-Selling Machine: A Practical Guide to Converting Visitors in
 description: 'Transform your website from a digital brochure into a high-converting sales engine with these 7 proven strategies. Learn how to capture leads, optimize conversions, and turn browsers into buyers.'
 pubDate: 'Dec 20 2024'
 updatedDate: 'Dec 20 2024'
-heroImage: '/blog-placeholder-sales.jpg'
 category: 'Business'
 readTime: '10 min read'
 tags: ['Conversion Optimization', 'Web Design', 'Marketing', 'Sales', 'SEO', 'CRO', 'Lead Generation']
@@ -328,7 +327,7 @@ Start with one or two changes this week and keep iterating. Each improvement com
 ---
 
 <div class="author-bio">
-<img src="/bradley-avatar.jpg" alt="Bradley Moggach" class="author-avatar" />
+<div class="author-avatar-placeholder"></div>
 <div class="author-info">
 <h4>About the Author</h4>
 <p><strong>Bradley Moggach</strong> is a web developer and conversion optimization specialist who has helped dozens of businesses transform their websites into revenue-generating machines. When he's not optimizing conversion funnels, you can find him cycling through the mountains or perfecting his sourdough recipe.</p>
@@ -339,6 +338,248 @@ Start with one or two changes this week and keep iterating. Each improvement com
 </div>
 </div>
 </div>
+
+<style>
+  .lead-paragraph {
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  
+  .highlight-box, .warning-box, .example-box {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .highlight-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+  
+  .warning-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    color: #92400e;
+  }
+  
+  .example-box {
+    background: #f0fdf4;
+    border-left: 4px solid #10b981;
+    color: #065f46;
+  }
+  
+  .checklist {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #667eea;
+  }
+  
+  .stat-label {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+  
+  .framework-table {
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+  
+  .framework-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .framework-table th,
+  .framework-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .framework-table th {
+    background: #f9fafb;
+    font-weight: 600;
+  }
+  
+  .word-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    justify-content: center;
+  }
+  
+  .power-word {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  
+  .process-step {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .step-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .metric-dashboard {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .tech-stack {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+  
+  .seo-checklist {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .action-plan {
+    background: #fef3c7;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  
+  .summary-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+  }
+  
+  .author-bio {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 12px;
+    margin-top: 3rem;
+  }
+  
+  .author-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-shrink: 0;
+  }
+  
+  .author-info h4 {
+    margin-top: 0;
+  }
+  
+  .author-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .author-links a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .author-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .featured-quote {
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+    color: #4a5568;
+    margin: 2rem 0;
+    padding: 2rem;
+    border-left: 4px solid #667eea;
+    background: #f9fafb;
+  }
+  
+  .implementation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .author-bio {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .author-avatar-placeholder {
+      margin: 0 auto;
+    }
+  }
+</style>
 
 <script type="application/ld+json">
 {
