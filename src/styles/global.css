@@ -1,1 +1,20 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: theme('colors.orange.500');
+    --color-primary-dark: theme('colors.orange.600');
+    --color-text: theme('colors.gray.900');
+    --color-text-light: theme('colors.gray.600');
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply antialiased;
+  }
+}

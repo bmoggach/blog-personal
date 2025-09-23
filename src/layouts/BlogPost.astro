@@ -4,253 +4,94 @@ import Layout from './Layout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, category, readTime, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
 ---
 
 <Layout title={title} description={description}>
-  <article class="container mx-auto px-4 py-8">
+  <article class="max-w-4xl mx-auto px-6 py-12">
     <!-- Back Navigation -->
-    <div class="mb-8">
-      <a 
-        href="/" 
-        class="inline-flex items-center gap-2 text-orange-500 hover:text-orange-600 font-medium transition-colors"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-        Back to Blog
-      </a>
-    </div>
+    <a href="/" class="inline-flex items-center gap-2 text-orange-500 hover:text-orange-600 mb-8 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Back to Blog
+    </a>
 
-    <!-- Hero Section -->
-    <header class="max-w-4xl mx-auto mb-12">
-      <!-- Category & Meta -->
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        {category && (
-          <span class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 px-3 py-1 rounded-full text-sm font-medium">
-            {category}
-          </span>
-        )}
-        {readTime && (
-          <span class="text-gray-500 dark:text-gray-400 text-sm">
-            {readTime}
-          </span>
-        )}
-        <span class="text-gray-500 dark:text-gray-400 text-sm">
-          {pubDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </span>
-        {updatedDate && (
-          <span class="text-gray-500 dark:text-gray-400 text-sm">
-            (Updated {updatedDate.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })})
-          </span>
-        )}
-      </div>
-
-      <!-- Title -->
-      <h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-purple-600 bg-clip-text text-transparent mb-6 leading-tight">
+    <!-- Article Header -->
+    <header class="mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">
         {title}
       </h1>
-
-      <!-- Description -->
-      {description && (
-        <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-          {description}
-        </p>
-      )}
-
-      <!-- Tags -->
-      {tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-8">
-          {tags.map((tag) => (
-            <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">
-              #{tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <!-- Hero Image -->
-      {heroImage && (
-        <div class="aspect-video bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 rounded-2xl p-8 flex items-center justify-center mb-12">
-          <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-          </svg>
-        </div>
-      )}
+      
+      <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <time datetime={pubDate.toISOString()}>
+          {formatDate(pubDate)}
+        </time>
+        {updatedDate && (
+          <>
+            <span>•</span>
+            <span>Updated {formatDate(updatedDate)}</span>
+          </>
+        )}
+      </div>
     </header>
 
-    <!-- Article Content -->
-    <div class="max-w-4xl mx-auto">
-      <div class="prose prose-lg prose-orange dark:prose-invert max-w-none">
-        <slot />
+    <!-- Hero Image -->
+    {heroImage && (
+      <div class="mb-12 -mx-6 md:mx-0">
+        <img 
+          src={heroImage} 
+          alt={title}
+          class="w-full h-auto rounded-lg shadow-xl"
+        />
       </div>
+    )}
+
+    <!-- Article Content -->
+    <div class="prose prose-lg dark:prose-invert max-w-none
+                prose-headings:font-bold 
+                prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-4
+                prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
+                prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+                prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+                prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+                prose-code:text-orange-600 dark:prose-code:text-orange-400 
+                prose-code:bg-orange-50 dark:prose-code:bg-orange-900/20 
+                prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-medium
+                prose-pre:bg-gray-900 dark:prose-pre:bg-gray-800 prose-pre:shadow-lg
+                prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 dark:prose-blockquote:bg-orange-900/10
+                prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
+                prose-img:rounded-lg prose-img:shadow-lg
+                prose-ul:list-disc prose-ol:list-decimal
+                prose-li:text-gray-700 dark:prose-li:text-gray-300">
+      <slot />
     </div>
 
     <!-- Article Footer -->
-    <footer class="max-w-4xl mx-auto mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="text-center sm:text-left">
-          <p class="text-gray-600 dark:text-gray-300 mb-2">
-            Thanks for reading! Share your thoughts or questions.
-          </p>
-          <div class="flex items-center justify-center sm:justify-start gap-4">
-            <a 
-              href="https://twitter.com/intent/tweet?url={Astro.url}&text={encodeURIComponent(title)}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-orange-500 hover:text-orange-600 transition-colors"
-            >
-              Share on Twitter
-            </a>
-            <a 
-              href="https://linkedin.com/sharing/share-offsite/?url={Astro.url}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-orange-500 hover:text-orange-600 transition-colors"
-            >
-              Share on LinkedIn
-            </a>
-          </div>
-        </div>
+    <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <div class="flex items-center justify-between">
+        <a href="/" class="text-orange-500 hover:text-orange-600 transition-colors">
+          ← Back to all posts
+        </a>
         
-        <div class="text-center">
-          <a 
-            href="/" 
-            class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-            More Posts
+        <div class="flex gap-4">
+          <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`} 
+             class="text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors"
+             target="_blank"
+             rel="noopener noreferrer">
+            Share on Twitter
           </a>
         </div>
       </div>
     </footer>
   </article>
 </Layout>
-
-<style>
-  /* Custom prose styling to match the site theme */
-  .prose {
-    --tw-prose-body: #374151;
-    --tw-prose-headings: #111827;
-    --tw-prose-links: #f97316;
-    --tw-prose-bold: #111827;
-    --tw-prose-counters: #6b7280;
-    --tw-prose-bullets: #d1d5db;
-    --tw-prose-hr: #e5e7eb;
-    --tw-prose-quotes: #111827;
-    --tw-prose-quote-borders: #fed7aa;
-    --tw-prose-captions: #6b7280;
-    --tw-prose-code: #ea580c;
-    --tw-prose-pre-code: #e5e7eb;
-    --tw-prose-pre-bg: #1f2937;
-    --tw-prose-th-borders: #d1d5db;
-    --tw-prose-td-borders: #e5e7eb;
-  }
-
-  .prose.dark\:prose-invert {
-    --tw-prose-body: #d1d5db;
-    --tw-prose-headings: #f3f4f6;
-    --tw-prose-links: #fb923c;
-    --tw-prose-bold: #f3f4f6;
-    --tw-prose-counters: #9ca3af;
-    --tw-prose-bullets: #4b5563;
-    --tw-prose-hr: #374151;
-    --tw-prose-quotes: #f3f4f6;
-    --tw-prose-quote-borders: #9a3412;
-    --tw-prose-captions: #9ca3af;
-    --tw-prose-code: #fb923c;
-    --tw-prose-pre-code: #d1d5db;
-    --tw-prose-pre-bg: #111827;
-    --tw-prose-th-borders: #4b5563;
-    --tw-prose-td-borders: #374151;
-  }
-
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-    color: var(--tw-prose-headings);
-    font-weight: 700;
-  }
-
-  .prose h2 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose h3 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose a {
-    color: var(--tw-prose-links);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .prose a:hover {
-    color: #ea580c;
-  }
-
-  .prose code {
-    color: var(--tw-prose-code);
-    background-color: #fff7ed;
-    padding: 0.125rem 0.25rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    font-weight: 600;
-  }
-
-  .dark .prose code {
-    background-color: rgba(124, 45, 18, 0.3);
-  }
-
-  .prose pre {
-    background-color: var(--tw-prose-pre-bg);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-  }
-
-  .prose pre code {
-    background-color: transparent;
-    padding: 0;
-    color: var(--tw-prose-pre-code);
-    font-size: 0.875rem;
-  }
-
-  .prose blockquote {
-    border-left: 4px solid var(--tw-prose-quote-borders);
-    padding-left: 1rem;
-    font-style: italic;
-    margin: 1.5rem 0;
-  }
-
-  .prose ul, .prose ol {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-  }
-
-  .prose li {
-    margin: 0.5rem 0;
-  }
-
-  .prose strong {
-    color: var(--tw-prose-bold);
-    font-weight: 600;
-  }
-</style>
