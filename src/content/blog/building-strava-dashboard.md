@@ -2,7 +2,7 @@
 title: 'Building a Performance-Optimized Strava Dashboard'
 description: 'Deep dive into optimizing React components, API caching, and bundle splitting for a lightning-fast cycling analytics platform.'
 pubDate: 'Jan 15 2024'
-heroImage: '/blog-placeholder-3.jpg'
+heroImage: '../../assets/blog-placeholder-3.jpg'
 category: 'Development'
 readTime: '8 min read'
 tags: ['React', 'Performance', 'Strava', 'TypeScript']
